@@ -1,0 +1,107 @@
+Turing - Computing Machinery and Intelligence
+1-The Imitation Game - Can a machine think?
+2-Critique of the New Problem - it is unfair to judge only machines
+3-Machines concerned in the Game
+4-Digital Computers - discrete machines
+5-Universality of Digital Computers
+6-Contrary Views on the Main Question
+	Theological Objection
+	'Heads in the Sand' Objection - They will take over the worl if they think
+	Mathematical Objection - Godel's theorem says sth
+	The Argument from Consciousness
+	Arguments from Various Disabilities - machines will never be able to make one to do X
+	Lady Lovelace's Objection - They need an input to think
+	Argument from Continuity in the Nervous System - Digital Computer are discrete
+	Argument from Informality of Behavior - It is impossible to set rules for everyday life of men
+	Argument from Extra-sensory perception
+7-Learning Machines
+
+Penrose - Can a Computer Have a Mind?
+1-Introduction - Technology, Physics Rules
+2-The Turing Test - Turing test's nature, limits, examples
+3-Artificial Intelligence - AI examples in history, chatbots, tortoise
+4-An AI Approach to Pleasure and Pain - pp-score, anthromorphic resembles (thinking cars, clocks. etc)
+5-Strong AI and Chinese Room - Einstein's brain's book
+6-Hardware and Software
+
+Searle - Minds, Brains, and Programs
+-Strong/weak AI, Hamburger restaurant story 
+-Machines may think but programs cannot, examines intentionality-mind relation
+Replies:
+1-Systems reply: you should think of the mechanism as a whole system
+2-Robot reply: add components to imitate live
+3-Brain similator reply: water pipes
+4-Combination reply: combine first three replies
+5-Other minds reply
+6-Many mansions reply: technology will advance enough to provide causality of action to programs
+
+Deutsch - Artificial Creativity
+-Chatbots (ELIZA, ELBOT), quale/qualia (seeing colors), Hofstadter hoax
+-AI field made no progress because we do not know how creativity works. If we understand DNA, we can implement 
+artificial evolution.
+
+Winograd - Thinking machines: Can there be? Are we? 
+1-Introduction: with the help of bureaucracy, we can improve AI. 
+2-Mechanization of rationality
+3-The promise of AI
+4-The foundations of artificial intelligence
+	1-the physical symbol system hypothesis: converting every concept to symbol's (Newell and Simon)
+	2-problem-solving, interference, and research: some examples with symbol systems (ADD, BUILDER, etc)
+	3-knowledge as a commodity
+5-the fundamental problem: there are some issues on the approach taken so far
+	1-Gaps of anticipation - patchwork rationalism is erratic
+	2-the blindness of representation
+	3-restriction of the domain
+6-The bureaucracy of mind
+7-Alternatives
+	1-Emergent intelligence: connectionism, neuron-like machines, evolution
+	2-Hermeneutic constructivism: machines understanding beyond what is said
+	3-Language machines
+8-Conclusion - we distort language while projecting it to machine and projecting back. We can do better by 
+including beyond what is said.
+
+Mitchell - Life and Evolution in Computers
+1
+-What is Life?
+-Self-reproduction in computers
+-Self-reproduction in DNA
+-Von Neumann's Self-reproducing Automation
+2
+-Genetic Algorithms
+
+Valiant - The Deducible
+PAC (Probably Approximatly Correct)
+1-Reasoning
+3-Challenge of Complexity
+4-Challenge of Brittleness
+5-Challenge of Semantics
+6-Challenge of Grounding
+7-Mind's Eye
+
+Wheeler - Cognition in Context: Phenomenology, Situated Robotics and the Frame Problem
+-background coping; continuous reciprocal causation (CRC); frame problem; Heidegger; representations; situatedness
+-Frame problem: To most AI researchers, the frame problem is the challenge of representing the effects of 
+action in logic without having to represent explicitly a large number of intuitively obvious non-effects. 
+
+
+Anderson - Asimov's 3 laws of robotics and machine metaethics
+-Ultimate goal is to create autonomous ethical machines and it presents a number of challenges. 
+-A good way to begin can be ethical advisor program.
+-Bicentennial man
+-Characteristics necessary to have a moral standing
+-Kant's arguments about non-human beings show that Asimov's laws are not enough.
+
+Sharkey - Granny and robots: ethical issues in robot care for the elderly
+Six concerns:
+-Reduction in human contact
+-Increase in objectification
+-loss of privacy
+-loss of personal liberty
+-deception
+-the circumstances in which elderly should control the robots.
+
+
+
+
+
+

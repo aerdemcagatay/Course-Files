@@ -1,0 +1,235 @@
+W7 L1 - ANALYSIS
+-Validation: are we building the right system? Does the system meet customer needs?
+-Verification: Are we building the system right? Does the implementation meets the spec?
+
+Types of Analysis
+-Static: without executing the program. i.e: checking comments of methods, checking that each called method is defined,
+tracking data flows, model checking, symbolic execution
+-Dynamic: at runtime. i.e: testing, profiling, monitoring, debugging, program slicing, tracking data flows.
+
+-Analysis is used for program optimization and program correctness.
+
+-Black-box analysis: requires no knowledge of internal paths, code structures, etc. Testing, monitoring.
+-White-box analysis: based on internal paths, code structures, and implementation of the software. Counting lines, control
+and data flow analysis, symbolic execution, model checking, testing.
+
+Modelling software
+-Graphs: a graph G = (N,E) is an ordered pair. N = set of nodes, E = set of edges ({n1,n2}). If the pairs in E are ordered, 
+then G is called a directed graph. If not, it is called an undirected graph.
+-Graphs should be sufficiently general, reasonably compact, predictive. No single model represents all characteristics well 
+enough to be useful for all kinds of analysis.
+
+-Abstract syntax tree: two kinds of nodes -> operator and operands. Used for program statements. pg 26
+
+-Control flow graphs: Nodes are statements or basic blocks. basic block is a maximal program region with a single entry and 
+single exit point. Directed edges transfer control from one statement to another. Intraprocedural. pg 27. Sometimes there might
+be infeasible paths. It is probably the most commonly used representation. Basis for many types of automated analysis and various
+transformations. 
+-Call Graphs: same as cfg but between functions (not within). 
+Static: sometimes misses flows. vs Dynamic: accurate for detected flows. (CFG / Call graphs)
+
+-Data Flow analysis: usually annotates CFG. Variable definitions and uses are represented by Def-use (DU). pg 46. They can be used
+for compilers and optimization (if a def is dead, or a variable has a constant value) and program analysis (if sensitive value reaches
+sensitive sink)
+
+W7 L2  - CODE REVIEWS
+-Code reviews for: improved code quality, hands-on learning experience from peers, better understanding of complex code bases.
+
+Code Review Types
+-Formal inspection: a formalized code review with roles, a specific checklist
+-Walkthroughs: informal discussion of code between author and a single reviewer. simple in execution but no record of the review, 
+missing some points, reviewers rarely verify that defects were fixed. 
+-Pair programming: two developers writing code at a single workstation. Deep reviews but no record, time consuming.
+
+-In practice: a mixture of techniques, integrated into the project workflow, testing and static analysis are performed by tools before
+manual review (Travis CI)
+-See pg 15 for an example review.
+-What to look for: bugs, security vulnerabilities, performance, maintainability, readability, comments, adherence to coding standards.
+
+Code smells
+-A characteristic of a design that is a strong indicator it has poor structure, and should be modified. 
+-SOFA: Short, one thing, few arguments, abstraction level. 
+-Some method-level code smells: magic numbers, comments (they should explain why, not what), long method, long parameter list (booleans 
+must be yellow flags, if arguments travel in a pack you should extract a new class), duplicated code, inconsistent names, conditional 
+complexity, switch statements
+-Some class-level code smells: large class, lazy class, feature envy (a class using another's data much), data class, inappropriate intimacy
+
+-Some quantitative metrics can be computed automatically. There exists several analysis tools for: code reviews, defect detections, detection of
+security vulnerabilities. i.e Codacy (code review)
+
+-NPath complexity: #acyclic exec paths in a method, module, class, or program. Calculated using the CFG.
+
+-Cyclomatic complexity: Calculated by CFG. Threshold is 10. M = E-N+2 
+
+-ABC score = sqrt(a2 + b2 + c2) -> A: assignments, B: branches, C: conditionals
+
+
+W8 L1 - TESTING
+Terminology
+-Error:incorrect software behavior
+-Bug (fault): mechanical or algorithmic cause of error
+-Fault avoidance: preventing errors before the system is released. (reviews, inspections, walkthroughs, testing, verification, development methods)
+-Fault tolerance: enables the system to recover from errors by itself. (rollback, redundancy, adaptations)
+-Test plan: a document describing the scope, approach, resources, and schedule of intended test activities.
+-Test case: a single unit of testing code.
+-Test suite: collection of test cases. 
+-Test oracle: expected behavior
+-Test harness: collection of all above (which starts with 'test')
+
+Ad-hoc testing: 
+1-Identify the fault
+2-Write a test case that does not execute the statements related to fault
+3-// // that executes the statements related to the fault but does not result in a detectable error state.
+4-Write a test case that detects the fault. pg 32
+
+-----Testing dimensions-------
+-Black-box testing: emphasizes the external behavior of the software entity. Selection of test cases for functional testing is based on the 
+requirements or design specifications of the software. Process is not influenced by component being tested, it is robust wrt implementation, allows
+independent testers.
+-White-box testing: emphasizes the internal structure of the software entity. Goal is executing some specific statements, branches, or paths.
+Expected results are evaluated against certain assertions, on a set of coverage criteria. (path, branch, data-flow coverage, etc). It can find bugs 
+in the implementation that are not covered by specification, yields useful test cases but test might have bugs as well. 
+
+Levels of automation
+-manual testing->manually created test cases, no auto, hard to repeat.
+-test scripting->manually creating test cases and automated test exec
+-test generation->automatically generated test cases, based on criteria (i.e coverage), oracle problem
+
+-Manual testing: adv->requires clever test case design, human oracle | disadv->limited data, single test case execution, ad-hoc and might not be relatable. 
+-Automated testing: adv->clever test case design, repeatable, more test cases and input data possible, documented human oracle | disadv: expensive
+
+When to test? pg 40 & 41
+-Test last: conventional
+-Test first: agile way
+
+Regression testing (Travis CI)
+-Verifies that software which was previously developed and tested still performs the same way after it was changed or interfaced with other software.
+-Whenever you find a bug, store the input for that bug and the correct output. Add them to test suite and verify the fail. Fix the problem and verify the fix
+-It ensures that the bug is solved. Helps test suite to get better. Avoids bug in further releases. 
+
+-----Systematic Testing------
+Coverage
+-Statement coverage: each statement (or node in CFG) must be executed at least once for adequacy. #executed statements / #statements
+-Branch coverage: % of edges hit in CFG. To achive 100% each predicate must be both true or false.
+-Path coverage: #executed paths / #paths (pg 54 & 56)
+
+Symbolic execution
+-For symbolic execution example, see pg 65.
+-Applications: guiding the test input generation to cover all branches. Identifying infeasible program paths. Security testing.
+-Limitations: Expensive, problem wih handling loops, problem with function calls. 
+
+-Common practice for testing: statement-level coverage + clever test selection + test case for all found bugs + regression + TDD (test first)
+
+
+W8 L2 - TESTING
+
+------Main types of Testing Activities------
+-Unit->Integration->System->User Acceptance
+
+Unit testing
+-testing the behavior of an individual module. Automated. JUnit (for Java)
+-JUnit: TestCase (base class for test classes), assert*() (method family to check conditions), TestSuite (enables grouping several test cases). pg 14
+
+-Test Double Objects: are used for testing partially implemented systems. They eliminate dependencies of the system so tests are more focused on funtionality.
+-Stub: provide canned answers to calls, Mocks: are pre-programmed objects with expectations, they check the specification of the calls they expect.
+-Fake objects: have working implementations but usually take some shortcut which makes them not suitable for product, Dummy objects: are passed around but never
+actually used. They are used only for filling parameter list.
+-They are used when code isn't implemented fully, there are difficult-to-control elements (network, time-sensitive code, database, io, etc)
+-For using stubs, there is an example on pg 24.
+
+Integration testing
+-Phase in which individual software modules are combined and tested as a group.
+-BigBang (most developed modules are coupled together, its effective for time saving but failures are hard to pinpoint), Bottom-up (from lowest level to uppers,
+helpful only when all or most of the modules of the same level are ready), Top-down, mixed (top-down and bottom-up), risky-hardest
+
+System testing
+-Tests the behavior of the system as a whole. Functional testing, usability, installation, performance, load testing, GUI testing
+-Performance: slow is ususally wrong. CPU, runtime, memory usage, etc. High-level optimizations, lazy evaluation, caching, multiple db queries into one query helps
+bettering performance.
+-Profiling: log and monitor with short design profiling (to avoid slow). If the app meets project's performance requirements, don't optimize it.
+
+User acceptance testing
+-A form of black-box testing
+-Beta: helps understand customer wantings, but may result in exhausting beta testers.
+
+GUI Testing
+-GUIs are event-driven systems. GUI interacts with the underlying code by method calls or messages. Testing GUI is crucial for system usability, robustness, and safety
+-GUI test cases are able to identify, exercise, provide inputs for GUI components and events. They test funtionality indirectly.
+-2 types: during acceptance & as regression testing (test the system wrt changes). 
+-Approaches = Manual, capture and replay, test generation (random event generator - Android Monkey)
+-GUI error examples: incorrect action flow, missing commands, incorrect GUI screens/states.
+-Challenges: hard and costly, measuring adequacy is a problem, it is technology-dependent.
+
+-Coverage criteria: conventional code-based coverage doesn't work well. So,
+1-Event coverage
+2-Screen coverage
+3-Widget coverage
+4-Event-sequence coverage
+5-Scenario coverage
+
+Capture and replay
+-Sessions of tester are recorded. If GUI changes, script must be updated
+-Some tools (Appium, Espresso) produce scripts that can be updated by the tester to include conditions and acceptance criteria. It creates a notion of oracle in GUI 
+testing because GUI testing detects mainly crashes and there is no such a thing as oracle most of the time.
+
+W9 L1 - Backlog and Tech Debt
+
+Backlog
+-Having multiple repos for different things to do, managed by multiple or different people, based on different criteria is a bad idea.
+-Manage all colors together. 
+-Value is different than cost.
+-Try to maximize value.
+ ________________________
+|		|  |  |  |
+|		|  |  |  |
+|		| 1| 2| 3| --> timebox
+|_______________|__|__|__|
+1. Buffer for invisible positive (estimate uncertainties)
+2. Buffer for visible negative (defect) correction
+3. Buffer for TechDebt payment
+
+Technical debt
+-It highers cost for evolvability and maintainability
+-techdebt != defect
+-It depends on future, you can walk away from some of it
+-It can be an early investment (i.e early MVP to test the market)
+
+
+W10 L1 - CI/CD
+
+Integration types
+-Ad-hoc integration
+-Continuous integration: practice of routinely integrating code changes into main branch, and testing changes as often as possible.
+-pg 15 for agile deveopment -> CI -> Cont. Delivery. -> Cont. Deploy.
+
+DevOps
+-Devs want to push new features
+-Ops want to keep the system stable and available.
+-If they are not communicating well, slow releases.
+-DevOps: a set of practices intended to reduce the time between committing a change to a system and the change being placed into normal production, while ensuring
+high quality.
+-Automation and monitoring at all steps, Developer's responsiblity.
+
+Upgrades
+-Blue/Green: only one version available to the client at any time, requires 2N VMs (expensive), it is easy.
+-Rolling: Multiple versions are available at the same time, requires N+1 VMs (cheap) 
+
+-Canary testing: canaries are small number of instances of a new version placed in production in order to perform live testing in a production environment.
+
+IaC
+-Using definition files instead of traditional interactive config tools.
+-Idempotence: IaC should generate the same environment every time it is applied. 
+-Single source of truth, increase repeatabilty and testability, decrease provisioning time, rely less on availability of persons
+
+Monitoring
+-You can monitor: CPU, memory, disk, network, cache
+-Measuring: response time, throughput, error rate
+For summary, see pg 58
+
+
+W10 L2 - Version Control
+-CVS: not used
+-Distributed VCS: git, mercurial
+-merge (3-way), rebase, squash, cherry pick
+-Clone vs fork (pull request is provided by platforms i.e GitHub)
+-Branching strategies: master only, master/develop, feature branches, release branches, gitflow (pg 111)
